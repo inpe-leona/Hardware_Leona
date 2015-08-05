@@ -85,17 +85,14 @@ public final class PTZController {
                 }
                 AzGraus = graus;
             } else {
-                if (graus > 0 && graus <= 35) {
+                   System.out.println("*****************ELEVAÇÃO*******************");
+                if (graus >= 1 && graus <= 35) {
                     if (valorAtual < graus) {
                         int c = graus - valorAtual;
                         up(c);
                         System.out.println("Resultado =" + c);
                     } else if (valorAtual > graus) {
                         int dif = valorAtual - graus;
-                        down(dif);
-                        System.out.println("Resultado =" + dif);
-                    } else if (graus == 0) {
-                        int dif = valorAtual - valorAtual;
                         down(dif);
                         System.out.println("Resultado =" + dif);
                     }
@@ -121,8 +118,8 @@ public final class PTZController {
                         System.out.println("Valor Atual = " + valorAtual);
                         int c = valorAtual - graus;
                         down(c);
-
                         System.out.println("Resultado =" + c);
+
                     } else if (valorAtual == 0) {
                         System.out.println("Elevação === 0");
                         System.out.println("Graus negativo" + graus);
@@ -130,6 +127,16 @@ public final class PTZController {
                         int dif = -graus;
                         down(dif);
                         System.out.println("Resultado =" + dif);
+                    }
+                } else if (graus == 0) {
+                    if (valorAtual < 0) {
+                        int conta = valorAtual - (valorAtual);
+                        up(conta);
+                        System.out.println("Resultado do negativo para 0 =" + conta);
+                    } else if (valorAtual > 0) {
+                        int conta = valorAtual - valorAtual;
+                        down(conta);
+                        System.out.println("Resultado do positivo para 0 =" + conta);
                     }
                 }
                 valorAtual = graus;
