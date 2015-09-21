@@ -20,15 +20,15 @@
             <type>jar</type>
         </dependency>
         <dependency>
-            <groupId>rxtx</groupId>
-            <artifactId>RXTXComm</artifactId>
-            <version>1</version>
-        </dependency>
-        <dependency>
             <groupId>javax.media</groupId>
             <artifactId>jmf</artifactId>
             <version>2.1.1e</version>
             <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.rxtx</groupId>
+            <artifactId>RXTXComm</artifactId>
+            <version>1</version>
         </dependency>
     </dependencies>
     <properties>
