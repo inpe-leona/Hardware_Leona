@@ -85,62 +85,55 @@ public final class PTZController {
                 }
                 AzGraus = graus;
             } else {
-                   System.out.println("*****************ELEVAÇÃO*******************");
-                if (graus >= 1 && graus <= 35) {
+                System.out.println("*****************ELEVAÇÃO*******************");
+                if (graus >= 1 && graus <= 39) {
+                    System.out.println("**********Valores Positivos**********");
                     if (valorAtual < graus) {
+
                         int c = graus - valorAtual;
                         up(c);
-                        System.out.println("Resultado =" + c);
+                        System.out.println("1 Calculo: " + graus + " - " + valorAtual + " = " + c);
                     } else if (valorAtual > graus) {
                         int dif = valorAtual - graus;
                         down(dif);
-                        System.out.println("Resultado =" + dif);
+                        System.out.println("1.0 Calculo: " + valorAtual + " - " + graus + "= " + dif);
                     }
-                } else if (graus <= 0 && graus >= -35) {
-                    if (valorAtual == graus) {
-                        System.out.println("********valorAtualfor========*NUMERO*NEGATIVO*********");
-                        System.out.println("Graus negativo" + graus);
-                        System.out.println("Valor Atual = " + valorAtual);
-                        int c = valorAtual;
-                        System.out.println("Resultado =" + c);
+                    valorAtual = graus;
+                    System.out.println("1 Valor salvo: " + valorAtual);
+                    System.out.println("****************************");
 
-                    } else if (valorAtual < graus) {
-                        System.out.println("********valorAtualfor<<<<<<NUMERO*NEGATIVO*********");
-                        System.out.println("Graus negativo" + graus);
-                        System.out.println("Valor Atual = " + valorAtual);
+                }
+                if (graus <= -1 && graus >= -39) {
+                    System.out.println("**********Valores Negativos**********");
+                    if (valorAtual < graus) {
+
                         int c = graus - valorAtual;
                         up(c);
-                        System.out.println("Resultado =" + c);
-
-                    } else if (valorAtual > graus && valorAtual != 0) {
-                        System.out.println("********valorAtualfor>>>>*NUMERO*NEGATIVO*********");
-                        System.out.println("Graus negativo" + graus);
-                        System.out.println("Valor Atual = " + valorAtual);
-                        int c = valorAtual - graus;
-                        down(c);
-                        System.out.println("Resultado =" + c);
-
-                    } else if (valorAtual == 0) {
-                        System.out.println("Elevação === 0");
-                        System.out.println("Graus negativo" + graus);
-                        System.out.println("Valor Atual = " + valorAtual);
-                        int dif = -graus;
+                        System.out.println("3 Calculo: " + graus + " - " + valorAtual + " = " + c);
+                    } else if (valorAtual > graus) {
+                        int dif = valorAtual - graus;
                         down(dif);
-                        System.out.println("Resultado =" + dif);
+                        System.out.println("3.0 Calculo: " + valorAtual + " - " + graus + "= " + dif);
                     }
+                    valorAtual = graus;
+                    System.out.println("3 Valor salvo: " + valorAtual);
+                    System.out.println("****************************");
                 } else if (graus == 0) {
-                    if (valorAtual < 0) {
-                        int conta = valorAtual - (valorAtual);
-                        up(conta);
-                        System.out.println("Resultado do negativo para 0 =" + conta);
-                    } else if (valorAtual > 0) {
-                        int conta = valorAtual - valorAtual;
-                        down(conta);
-                        System.out.println("Resultado do positivo para 0 =" + conta);
+                    if (valorAtual < graus) {
+                        int c = -valorAtual;
+                        System.out.println("c antes do up = " + c);
+                        up(c);
+                        System.out.println(" 2.0 valor que estava armazenado era....entao " + valorAtual + "- ( " + valorAtual + " ) =" + c);
+                    } else if (valorAtual > graus) {
+                        int dif = valorAtual;
+                        down(dif);
+                        System.out.println(" 2.1 valor que estava armazenado era....entao " + valorAtual + "- ( " + valorAtual + " )=" + dif);
                     }
+                    valorAtual = graus;
+                    System.out.println("2 Sai do IF valor atual deveria ser: " + valorAtual);
                 }
-                valorAtual = graus;
             }
+            valorAtual = graus;
 
         } catch (Exception e) {
             System.out.println("*****Erro ao calcular azimute 0º a 350º*  e Elevação -35º a 35ºº*****");
@@ -237,7 +230,6 @@ public final class PTZController {
         }
     }
 
-    
     /*
      *Liga a camera
      */
@@ -274,19 +266,17 @@ public final class PTZController {
      *Reset o pantilt para 0º e camera 0º para Posição Inicial
      */
     public int resetPantilt() {
-        down = "!070D*";       //colocará o pantilt a -35graus
-        zeroGraus = "!035U*";  // ajustará para 0 graus a elevação
+        down = "!001S*"; // ajustará para 0 graus a elevação
         left = "!350L*";
 
         if (serialPort.enviaDados(down) == 1) {
-            serialPort.enviaDados(zeroGraus);
 
             return serialPort.enviaDados(left);
             // }
         } else {
             return 0;
         }
-    } 
+    }
     /*
      * testa se o arduino está ativo ou inativo
      */
