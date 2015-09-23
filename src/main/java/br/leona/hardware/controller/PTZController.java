@@ -22,7 +22,7 @@ public final class PTZController {
     private String portaCOM;
     CommPortIdentifier portas = null;
     String left, right, up, down, zeroGraus;
-    int AzGraus, ElGraus, valorAtual; // AzimuteGraus e ElevacaoGraus
+    int AzGraus, ElGraus; // AzimuteGraus e ElevacaoGraus
 
     public PTZController() {
         searchPorts();
@@ -61,13 +61,13 @@ public final class PTZController {
      */
 
     public int calculoAzimuteElevacao(int graus, String coordenada) {
-        System.out.println("graus digitado:" + AzGraus);
         System.out.println("graus digitado:" + graus);
         int retorno = 0;
+
         try {
             if (coordenada.equals("azimute")) {
-
                 System.out.println("*****************AZIMUTE*******************");
+                System.out.println("graus digitado azimute:" + AzGraus);
                 if (graus >= 0 && graus < 351) {
                     if (AzGraus < graus) {
                         int c = graus - AzGraus;
@@ -86,55 +86,55 @@ public final class PTZController {
                 AzGraus = graus;
             } else {
                 System.out.println("*****************ELEVAÇÃO*******************");
+                System.out.println("graus digitado elevacao:" + ElGraus);
                 if (graus >= 1 && graus <= 39) {
                     System.out.println("**********Valores Positivos**********");
-                    if (valorAtual < graus) {
+                    if (ElGraus < graus) {
 
-                        int c = graus - valorAtual;
+                        int c = graus - ElGraus;
                         up(c);
-                        System.out.println("1 Calculo: " + graus + " - " + valorAtual + " = " + c);
-                    } else if (valorAtual > graus) {
-                        int dif = valorAtual - graus;
+                        System.out.println("1 Calculo: " + graus + " - " + ElGraus + " = " + c);
+                    } else if (ElGraus > graus) {
+                        int dif = ElGraus - graus;
                         down(dif);
-                        System.out.println("1.0 Calculo: " + valorAtual + " - " + graus + "= " + dif);
+                        System.out.println("1.0 Calculo: " + ElGraus + " - " + graus + "= " + dif);
                     }
-                    valorAtual = graus;
-                    System.out.println("1 Valor salvo: " + valorAtual);
+                    ElGraus = graus;
+                    System.out.println("1 Valor salvo: " + ElGraus);
                     System.out.println("****************************");
 
                 }
                 if (graus <= -1 && graus >= -39) {
                     System.out.println("**********Valores Negativos**********");
-                    if (valorAtual < graus) {
+                    if (ElGraus < graus) {
 
-                        int c = graus - valorAtual;
+                        int c = graus - ElGraus;
                         up(c);
-                        System.out.println("3 Calculo: " + graus + " - " + valorAtual + " = " + c);
-                    } else if (valorAtual > graus) {
-                        int dif = valorAtual - graus;
+                        System.out.println("3 Calculo: " + graus + " - " + ElGraus + " = " + c);
+                    } else if (ElGraus > graus) {
+                        int dif = ElGraus - graus;
                         down(dif);
-                        System.out.println("3.0 Calculo: " + valorAtual + " - " + graus + "= " + dif);
+                        System.out.println("3.0 Calculo: " + ElGraus + " - " + graus + "= " + dif);
                     }
-                    valorAtual = graus;
-                    System.out.println("3 Valor salvo: " + valorAtual);
+                    ElGraus = graus;
+                    System.out.println("3 Valor salvo: " + ElGraus);
                     System.out.println("****************************");
                 } else if (graus == 0) {
-                    if (valorAtual < graus) {
-                        int c = -valorAtual;
+                    if (ElGraus < graus) {
+                        int c = -ElGraus;
                         System.out.println("c antes do up = " + c);
                         up(c);
-                        System.out.println(" 2.0 valor que estava armazenado era....entao " + valorAtual + "- ( " + valorAtual + " ) =" + c);
-                    } else if (valorAtual > graus) {
-                        int dif = valorAtual;
+                        System.out.println(" 2.0 valor que estava armazenado era....entao " + ElGraus + "- ( " + ElGraus + " ) =" + c);
+                    } else if (ElGraus > graus) {
+                        int dif = ElGraus;
                         down(dif);
-                        System.out.println(" 2.1 valor que estava armazenado era....entao " + valorAtual + "- ( " + valorAtual + " )=" + dif);
+                        System.out.println(" 2.1 valor que estava armazenado era....entao " + ElGraus + "- ( " + ElGraus + " )=" + dif);
                     }
-                    valorAtual = graus;
-                    System.out.println("2 Sai do IF valor atual deveria ser: " + valorAtual);
+                    ElGraus = graus;
+                    System.out.println("2 Sai do IF valor atual deveria ser: " + ElGraus);
                 }
+                ElGraus = graus;
             }
-            valorAtual = graus;
-
         } catch (Exception e) {
             System.out.println("*****Erro ao calcular azimute 0º a 350º*  e Elevação -35º a 35ºº*****");
             retorno = 0;
@@ -266,6 +266,7 @@ public final class PTZController {
      *Reset o pantilt para 0º e camera 0º para Posição Inicial
      */
     public int resetPantilt() {
+        System.out.println("Entrei no reset.");
         down = "!001S*"; // ajustará para 0 graus a elevação
         left = "!350L*";
 
