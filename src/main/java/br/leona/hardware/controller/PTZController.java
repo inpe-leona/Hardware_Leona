@@ -271,7 +271,8 @@ public final class PTZController {
         left = "!350L*";
 
         if (serialPort.enviaDados(down) == 1) {
-
+            AzGraus = 0;
+            ElGraus = 0;
             return serialPort.enviaDados(left);
             // }
         } else {
